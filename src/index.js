@@ -1,13 +1,5 @@
-import "./index.css";
+import Canvali from "./Canvali";
+import CanvaliScene from "./CanvaliScene";
 
-class MyLibrary {
-  constructor() {
-    console.log("Library constructor loaded");
-  }
-
-  myMethod = () => {
-    console.log("Library method fired");
-  };
-}
-
-export default MyLibrary;
+export { Canvali, CanvaliScene };
+export default Canvali;

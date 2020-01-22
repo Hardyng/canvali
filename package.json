@@ -1,9 +1,10 @@
 {
-  "name": "@hodgef/js-library-boilerplate-basic",
-  "version": "1.1.16",
-  "description": "Javascript Minimal Starter Kit for building libraries",
+  "name": "Canvali",
+  "version": "0.0.1",
+  "description": "Canvas editor",
   "main": "build/index.js",
   "scripts": {
+    "dev": "webpack --watch",
     "build": "webpack",
     "test": "jest",
     "prepare": "npm run build",
@@ -13,21 +14,20 @@
     "type": "git",
     "url": "https://github.com/hodgef/js-library-boilerplate-basic"
   },
-  "author": "Francisco Hodge <hello@franciscohodge.com> (https://github.com/hodgef)",
+  "author": "Adam Kalinowski <iam.adam.kalinowski@gmail.com> (https://github.com/hardyng)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hodgef/js-library-boilerplate-basic/issues"
   },
   "homepage": "https://github.com/hodgef/js-library-boilerplate-basic",
   "keywords": [
-    "library",
-    "starter",
-    "es6"
+    "canvas"
   ],
   "devDependencies": {
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.8.3",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "babel-loader": "^8.0.6",
@@ -42,7 +42,10 @@
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@babel/runtime": "^7.8.3",
+    "fabric": "^3.6.0"
+  },
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/scripts/testMock.js",

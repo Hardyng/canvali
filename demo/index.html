@@ -11,10 +11,16 @@
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
-  <div id="root">
-      <h1>Hello World!</h1>
+  <button id="download">Download</button>
+  <button id="filter">Filter</button>
+  <button id="noise">Noise</button>
+  <button id="posterize">Posterize</button>
+  <button id="contrast">contrast</button>
+  <input id="value" type="number" placeholder="123"/>
+  <div style="background-color: #e8e8e8;">
+    <canvas id="abc" style="width: 1200px; height: 400px;"></canvas>
   </div>
-
+  <img crossorigin draggable src="https://pbs.twimg.com/media/EHDAwolXUAAP66s.jpg" />
   <script src="../build/index.js"></script>
   <script src="main.js"></script>
 </body>

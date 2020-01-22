@@ -1,10 +1,5 @@
 name: Publish
 
-on:
-  push:
-    branches:
-      - master
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -15,7 +10,7 @@ jobs:
           node-version: 12
       - run: npm install
       - run: npm run test -- --coverage --watchAll=false
-        
+
       - name: Setup GIT
         run: |
           git reset --hard
@@ -25,7 +20,7 @@ jobs:
           git config user.name "Francisco Hodge"
         env:
             GH_EMAIL: ${{secrets.GH_EMAIL}}
-          
+
       - name: Bump version
         run: |
           git reset --hard
@@ -36,7 +31,7 @@ jobs:
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          
+
       - name: npm publish
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN

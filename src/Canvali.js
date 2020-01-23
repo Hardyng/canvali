@@ -6,11 +6,11 @@ if (fabric.isWebglSupported()) {
 }
 const defaultOpts = {
   dropImages: true,
-  height: 500,
-  width: 500
+  height: null,
+  width: null
 };
 const Canvali = fabric.util.createClass(fabric.Canvas, {
-  initialize: function(el, opts) {
+  initialize: function(el, opts = {}) {
     if (typeof el === "string") {
       el = document.getElementById(el);
       if (!el) {
@@ -19,6 +19,12 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
     }
     if (!el) {
       throw new Error("No element provided");
+    }
+    if (!opts.width) {
+      opts.width = el.parentElement.offsetWidth;
+    }
+    if (!opts.height) {
+      opts.height = el.parentElement.offsetHeight;
     }
     opts = Object.assign(defaultOpts, opts);
     this.callSuper("initialize", el, opts);

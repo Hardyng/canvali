@@ -1,6 +1,6 @@
 const { default: Canvali, CanvaliScene } = window.Canvali
 
-const canvali = new Canvali('abc', { width: 800, height: 600 })
+const canvali = new Canvali('abc')
 const canvaliScene = new CanvaliScene({
   rx: 10,
   width: 600,

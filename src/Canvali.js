@@ -154,7 +154,7 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
     this.add(oImg);
   },
   setScene: function(scene) {
-    this.add(canvaliScene);
+    this.add(scene);
     this._scene = scene;
     this._scene.updatePosition();
   },
@@ -251,6 +251,34 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
             min: -1,
             max: 1,
             default: 0.2
+          }
+        ]
+      },
+      pixelate: {
+        Factory: fabric.Image.filters.Pixelate,
+        params: [
+          {
+            paramName: "blocksize",
+            min: 1,
+            default: 8
+          }
+        ]
+      },
+      saturation: {
+        Factory: fabric.Image.filters.Saturation,
+        params: [
+          {
+            paramName: "saturation",
+            default: 100
+          }
+        ]
+      },
+      hueRotation: {
+        Factory: fabric.Image.filters.Saturation,
+        params: [
+          {
+            paramName: "rotation",
+            default: -0.5
           }
         ]
       },

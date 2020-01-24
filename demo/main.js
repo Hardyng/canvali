@@ -14,11 +14,28 @@ document.getElementById('filter').addEventListener('click', () => {
   canvali.filter('grayscale')
 })
 document.getElementById('noise').addEventListener('click', () => {
-  canvali.filter('noise')
+  const value = document.getElementById('value').value
+  canvali.filter('noise' ,value)
 })
 document.getElementById('posterize').addEventListener('click', () => {
   const value = document.getElementById('value').value
   canvali.filter('posterize', value)
+})
+document.getElementById('pixelate').addEventListener('click', () => {
+  const value = document.getElementById('value').value
+  canvali.filter('pixelate', value)
+})
+document.getElementById('saturation').addEventListener('click', () => {
+  const value = document.getElementById('value').value
+  canvali.filter('saturation', value)
+})
+document.getElementById('hueRotation').addEventListener('click', () => {
+  const value = document.getElementById('value').value
+  canvali.filter('hueRotation', value)
+})
+document.getElementById('blur').addEventListener('click', () => {
+  const value = document.getElementById('value').value
+  canvali.filter('blur', value)
 })
 document.getElementById('contrast').addEventListener('click', () => {
   const value = document.getElementById('value').value

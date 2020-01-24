@@ -82,20 +82,9 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
     );
   },
   addImage: function(oImg) {
-    // let _scaleMultipl;
-    // if (oImg.width < this._scene.width) {
-    // }
-
     const scale = Math.max(
       this._scene.width / oImg.width,
       this._scene.height / oImg.height
-    );
-    console.log(
-      scale,
-      this._scene.width,
-      oImg.width,
-      this._scene.height,
-      oImg.height
     );
     if (this._img) {
       this.remove(this._img);
@@ -206,28 +195,28 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
 
     dataURIToBlob(_base64, saveFile);
   },
-  filter(type, value = null, { setNew = true } = {}) {
+  filter(type, value = null, { setNew = false } = {}) {
     console.log(this._img);
     if (!this._img) {
       return;
     }
     const filters = {
       grayscale: {
-        Factory: fabric.Image.filters.Grayscale,
-        params: []
+        Factory: fabric.Image.filters.Grayscale
       },
       noise: {
         Factory: fabric.Image.filters.Noise,
         params: [
           {
-            defaultValue: 50,
-            paramName: "noise"
+            defaultValue: 0,
+            paramName: "noise",
+            min: 0,
+            max: 150
           }
         ]
       },
       sepia: {
-        Factory: fabric.Image.filters.Sepia,
-        params: []
+        Factory: fabric.Image.filters.Sepia
       },
       blur: {
         Factory: fabric.Image.filters.Blur,
@@ -235,17 +224,8 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
           {
             min: 0,
             max: 1,
-            default: 0.1,
+            default: 0,
             paramName: "blur"
-          }
-        ]
-      },
-      convolute: {
-        Factory: fabric.Image.filters.Convolute,
-        params: [
-          {
-            paramName: "matrix",
-            default: [1, 1, 1, 1, 0.7, -1, -1, -1, -1]
           }
         ]
       },
@@ -254,9 +234,9 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
         params: [
           {
             paramName: "contrast",
-            min: -1,
+            min: 0,
             max: 1,
-            default: 0.2
+            default: 0
           }
         ]
       },
@@ -266,7 +246,8 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
           {
             paramName: "blocksize",
             min: 1,
-            default: 8
+            max: 36,
+            default: 1
           }
         ]
       },
@@ -275,16 +256,20 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
         params: [
           {
             paramName: "saturation",
-            default: 100
+            min: -1,
+            max: 1,
+            default: 0
           }
         ]
       },
       hueRotation: {
-        Factory: fabric.Image.filters.Saturation,
+        Factory: fabric.Image.filters.HueRotation,
         params: [
           {
             paramName: "rotation",
-            default: -0.5
+            default: 0,
+            min: 0,
+            max: 1
           }
         ]
       },
@@ -302,7 +287,7 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
     };
     if (filters[type]) {
       const newFilter = new filters[type].Factory(
-        filters[type].params.reduce(
+        (filters[type].params || []).reduce(
           (params, curr) => ({
             ...params,
             [curr.paramName]: value ? value : curr.defaultValue
@@ -313,7 +298,14 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
       if (setNew) {
         this._img.filters = [newFilter];
       } else {
-        this._img.filters.push(newFilter);
+        const override = this._img.filters.find(
+          filter => filter.type === newFilter.type
+        );
+        if (override) {
+          override[override.mainParameter] = newFilter[override.mainParameter];
+        } else {
+          this._img.filters.push(newFilter);
+        }
       }
     }
     this._img.applyFilters();

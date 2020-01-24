@@ -5,6 +5,7 @@ const PosterizeFilter = fabric.util.createClass(
   {
     type: "Posterize",
     posterize: 8.0,
+    mainParameter: "posterize",
     initialize(options) {
       if (options) {
         this.setOptions(options);

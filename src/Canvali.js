@@ -32,6 +32,7 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
       this.watchFileDrop();
     }
     this._img = null;
+    fabric.filterBackend = fabric.initFilterBackend();
   },
   watchFileDrop: function() {
     this.wrapperEl.addEventListener(
@@ -112,7 +113,6 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
       const bottomBound = topBound + this._scene.height;
       const leftBound = this._scene.left;
       const rightBound = leftBound + this._scene.width;
-      console.log(top, topBound);
       oImg.set(
         "top",
         bottom < bottomBound

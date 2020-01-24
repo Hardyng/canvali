@@ -195,6 +195,11 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
 
     dataURIToBlob(_base64, saveFile);
   },
+  unsetFilter() {
+    this._img.filters = [];
+    this._img.applyFilters();
+    this.renderAll();
+  },
   filter(type, value = null, { setNew = false } = {}) {
     if (!this._img) {
       return;

@@ -196,9 +196,18 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
     dataURIToBlob(_base64, saveFile);
   },
   filter(type, value = null, { setNew = false } = {}) {
-    console.log(this._img);
     if (!this._img) {
       return;
+    }
+    function normalizeValue(val, min, max) {
+      if (min == null || max == null) {
+        return val;
+      }
+      val = (val / 100) * (max - min) + min;
+      if (val > 1) {
+        val = Math.ceil(val);
+      }
+      return val;
     }
     const filters = {
       grayscale: {
@@ -277,10 +286,10 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
         Factory: PosterizeFilter,
         params: [
           {
-            min: 0,
-            max: 8,
+            min: 8,
+            max: 36,
             paramName: "posterize",
-            default: 8
+            default: 36
           }
         ]
       }
@@ -290,7 +299,9 @@ const Canvali = fabric.util.createClass(fabric.Canvas, {
         (filters[type].params || []).reduce(
           (params, curr) => ({
             ...params,
-            [curr.paramName]: value ? value : curr.defaultValue
+            [curr.paramName]: value
+              ? normalizeValue(value, curr.min, curr.max)
+              : curr.defaultValue
           }),
           {}
         )

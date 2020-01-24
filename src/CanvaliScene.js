@@ -20,8 +20,8 @@ const defaultOpts = {
     offsetX: 0,
     offsetY: 0
   },
-  rx: 10,
-  ry: 10
+  rx: 0,
+  ry: 0
 };
 
 const CanvaliScene = fabric.util.createClass(fabric.Rect, {
